@@ -1155,7 +1155,7 @@ full_address = r"""
                     (?:
                         {part_div} {region1} (?![A-Za-z])
                         | 
-                        (?:{part_div}? {postal_code})
+                        (?:{part_div}|\-)? {postal_code}
                     ){{1,2}}
                     (?:{part_div} {country})?
                 )
