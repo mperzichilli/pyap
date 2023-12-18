@@ -69,9 +69,9 @@ def test_country_detection_missing():
 
 def test_normalize_string():
     ap = parser.AddressParser(country="US")
-    raw_string = """\n The  quick      \t, brown fox      jumps over the lazy dog,
-    ‐ ‑ ‒ – — ―
-    """
+    raw_string = (
+        """, The  quick      \t, brown fox      jumps over the lazy dog, ‐ ‑ ‒ – — ―,"""
+    )
     clean_string = ", The quick, brown fox jumps over the lazy dog, - - - - - -, "
     assert ap._normalize_string(raw_string) == clean_string
 
@@ -86,6 +86,44 @@ def test_combine_results():
     "input,expected",
     [
         ("No address here", None),
+        (
+            "2590 Elm Road NE - Warren, OH 44483",
+            {
+                "street_number": "2590",
+                "street_name": "Elm",
+                "street_type": "Road",
+                "post_direction": "NE",
+                "city": "Warren",
+                "region1": "OH",
+                "postal_code": "44483",
+                "full_address": "2590 Elm Road NE - Warren, OH 44483",
+            },
+        ),
+        (
+            "899 HEATHROW PARK LN 02-2135\nLAKE MARY,FL 32746",
+            {
+                "street_number": "899",
+                "street_name": "HEATHROW PARK",
+                "street_type": "LN",
+                "city": "LAKE MARY",
+                "region1": "FL",
+                "postal_code": "32746",
+                "full_address": "899 HEATHROW PARK LN 02-2135\nLAKE MARY, FL 32746",
+            },
+        ),
+        (
+            "696 BEAL PKWY NW\nFT WALTON BCH FL 32547",
+            {
+                "street_number": "696",
+                "street_name": "BEAL",
+                "street_type": "PKWY",
+                "post_direction": "NW",
+                "city": "FT WALTON BCH",
+                "region1": "FL",
+                "postal_code": "32547",
+                "full_address": "696 BEAL PKWY NW\nFT WALTON BCH FL 32547",
+            },
+        ),
         (
             "xxx, 225 E. John Carpenter Freeway, Suite 1500 Irving, Texas 75062 xxx",
             {
@@ -110,7 +148,7 @@ def test_combine_results():
                 "city": "NORTON SHORES",
                 "region1": None,
                 "postal_code": "49441",
-                "full_address": ("1300 E MOUNT GARFIELD ROAD, NORTON SHORES 49441"),
+                "full_address": "1300 E MOUNT GARFIELD ROAD, NORTON SHORES 49441",
             },
         ),
         (
@@ -154,8 +192,8 @@ def test_parse_address(input: str, expected):
     ap = parser.AddressParser(country="US")
     if result := ap.parse(input):
         expected = expected or {}
-        for key in expected:
-            assert getattr(result[0], key) == expected[key]
+        received = {key: getattr(result[0], key) for key in expected}
+        assert received == expected
     else:
         assert expected is None
 
