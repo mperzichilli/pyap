@@ -367,6 +367,7 @@ def test_occupancy(input, expected):
         ("P.O. BOX 99999", True),
         ("PMB 29700", True),
         ("pmb #29700", True),
+        ("PO Box # A3656", True),
         # negative assertions
         ("po box108 ", False),
         ("PoBox53485 ", False),
@@ -559,6 +560,7 @@ def test_full_street_positive(input, expected):
         ("POST OFFICE BOX 123, Austin TX 78755", True),
         ("1 MEGA CENTER, MegaCity, MICH.49423-9576", True),
         ("1300 E MOUNT GARFIELD ROAD, NORTON SHORES 49441", True),
+        ("PO Box # A3656\nChicago, IL 60690", True),
         # negative assertions
         ("ONE HEALING CENTER LLC, 16444", False),
         ("85 STEEL REGULAR SHAFT - NE", False),

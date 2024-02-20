@@ -914,12 +914,11 @@ po_box = r"""
                         |
                         [Pp][Oo][Ss][Tt]\ [Oo][Ff][Ff][Ii][Cc][Ee]\ ?
                     )?
-                    [Bb][Oo][Xx]\ \d+
+                    [Bb][Oo][Xx]
+                    |
+                    [Pp][Mm][Bb]
                 )
-                |
-                (?:
-                    [Pp][Mm][Bb]\ \#?\d+
-                 )
+                \ \#?\ ?A?\d+   
             )
         """
 
