@@ -186,6 +186,19 @@ def test_combine_results():
                 "postal_code": "94583-2176",
             },
         ),
+        (
+            "2006 Broadway Ave Suite 2A, PO Drawer J, Great Bend, KS 67530",
+            {
+                "street_number": "2006",
+                "street_type": "Ave",
+                "street_name": "Broadway",
+                "occupancy": "Suite 2A",
+                "city": "Great Bend",
+                "region1": "KS",
+                "po_box": "PO Drawer J",
+                "postal_code": "67530",
+            },
+        ),
     ],
 )
 def test_parse_address(input: str, expected):

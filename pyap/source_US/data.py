@@ -908,17 +908,21 @@ occupancy = r"""
 
 po_box = r"""
             (?:
+                [Pp]\.?\ ?[Oo]\.?\ ?
+                |
+                [Pp][Oo][Ss][Tt]\ [Oo][Ff][Ff][Ii][Cc][Ee]\ ?
+            )?
+            (?:
                 (?:
                     (?:
-                        [Pp]\.?\ ?[Oo]\.?\ ?
+                        [Bb][Oo][Xx]
                         |
-                        [Pp][Oo][Ss][Tt]\ [Oo][Ff][Ff][Ii][Cc][Ee]\ ?
-                    )?
-                    [Bb][Oo][Xx]
-                    |
-                    [Pp][Mm][Bb]
+                        [Pp][Mm][Bb]
+                    )
+                    \ \#?\ ?A?\d+
                 )
-                \ \#?\ ?A?\d+   
+                |
+                (?:[Dd][Rr][Aa][Ww][Ee][Rr]\ +[A-Z]\b)
             )
         """
 
