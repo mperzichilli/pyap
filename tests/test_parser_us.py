@@ -323,6 +323,7 @@ def test_building(input, expected):
         ("ste E", True),
         ("ste 9E", True),
         ("Suite 1800", True),
+        ("STE 130 S", True),
         ("Apt 1B", True),
         ("Rm. 52", True),
         ("#2b", True),
@@ -563,6 +564,7 @@ def test_full_street_positive(input, expected):
         ("1300 E MOUNT GARFIELD ROAD, NORTON SHORES 49441", True),
         ("PO Box # A3656\nChicago, IL 60690", True),
         ("2006 Broadway Ave Suite 2A, PO Drawer J, Great Bend, KS 67530", True),
+        ("135 Pinelawn Road STE 130 S, Melville, NY 11747", True),
         # negative assertions
         ("ONE HEALING CENTER LLC, 16444", False),
         ("85 STEEL REGULAR SHAFT - NE", False),
