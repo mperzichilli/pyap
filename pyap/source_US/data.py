@@ -117,10 +117,10 @@ In example below:
 # 'Jean Baptiste Point du Sable Lake Shore Drive' and
 # 'Northeast Kentucky Industrial Parkway'
 # https://atkinsbookshelf.wordpress.com/tag/longest-street-name-in-us/
-# On the other hand, there are streets like "Ed Drive".
+# On the other hand, there are streets like "Ed Drive" and "M Street".
 street_name_multi_word_re = r"""
             (?:
-                [a-zA-Z0-9\ \.\-\'\’]{3,41}|[a-zA-Z]{2}(?=\ [a-zA-Z])
+                \b[a-zA-Z0-9\ \.\-\'\’]{3,41}|\b[A-Z][A-Za-z]?(?=\ [A-Z])
             )
 """
 
