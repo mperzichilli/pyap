@@ -1150,7 +1150,18 @@ country = r"""
             )
             """
 
-full_address = r"""
+
+def make_full_address(
+    *,
+    full_street: str = full_street,
+    part_div: str = part_div,
+    city: str = city,
+    region1: str = region1,
+    country: str = country,
+    postal_code: str = postal_code,
+    phone_number: str = phone_number,
+) -> str:
+    return r"""
                 (?P<full_address>
                     {full_street}
                     (?:{part_div} {phone_number})?
@@ -1163,11 +1174,14 @@ full_address = r"""
                     (?:{part_div} {country})?
                 )
                 """.format(
-    full_street=full_street,
-    part_div=part_div,
-    city=city,
-    region1=region1,
-    country=country,
-    postal_code=postal_code,
-    phone_number=phone_number,
-)
+        full_street=full_street,
+        part_div=part_div,
+        city=city,
+        region1=region1,
+        country=country,
+        postal_code=postal_code,
+        phone_number=phone_number,
+    )
+
+
+full_address = make_full_address()
