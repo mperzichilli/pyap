@@ -159,9 +159,11 @@ post_direction_re = r"""
                         [Ww][Ee][Ss][Tt]
                     )
                     |
-                    (?:NW|NE|SW|SE)\b
+                    \b(?:NW|NE|SW|SE)\b
                     |
-                    (?:N|S|E|W)\b\.?
+                    \b(?:N\.W\.|N\.E\.|S\.W\.|S\.E\.)
+                    |
+                    \b(?:N|S|E|W)\b\.?
                 )
                 """
 
@@ -950,7 +952,7 @@ full_street = r"""
                     |
                     (?:
                         {post_direction_re}\ 
-                        [A-z0-9\.\-]{{2,31}}
+                        \d{{,3}}[A-Z][A-Za-z\-]{{,31}}
                     )
                 )
                 (?:{space_div}{post_direction})?

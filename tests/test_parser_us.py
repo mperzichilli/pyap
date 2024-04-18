@@ -191,6 +191,7 @@ def test_single_street_name(input, expected):
         ("eASt", True),
         ("NW", True),
         ("SE", True),
+        ("S.E.", True),
         # negative assertions
         ("NW.", False),
         ("NS", False),
@@ -459,6 +460,7 @@ def test_po_box_positive(input, expected):
         ("78 SE Criket", True),
         ("P.O. BOX 41256, One Velvet Drive", True),
         ("666 Hell ST PMB 29700", True),
+        ("817 S.E. 55TH", True),
         # negative assertions
         (", 666 Hell ST PMB 29700", False),
     ],
