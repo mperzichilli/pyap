@@ -68,4 +68,4 @@ enable = true
 vcs = "git"
 latest-tag = true
 pattern = "^(?P<base>\\d+\\.\\d+\\.\\d+)"
-format-jinja = "{% if distance == 0 %}{{ base }}{% else %}{{ base }}a+{{ distance }}.{{ commit }}{% endif %}"
+format-jinja = "{% if distance == 0 %}{{ base }}{% else %}{{ base }}a{{ distance }}{% endif %}"
