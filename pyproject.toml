@@ -1,14 +1,25 @@
 [tool.poetry]
-name = "pyap"
-version = "0.3.1"
-description = "Pyap is an MIT Licensed text processing library, written in Python, for detecting and parsing addresses. Currently it supports USA, Canadian and British addresses."
-authors = ["Vladimir Goncharov <vladimarius@gmail.com>"]
-documentation = "https://github.com/vladimarius/pyap"
+name = "argyle-pyap"
+version = "0.0.0"
+description = "Argyle's Pyap is a fork of Pyap, a MIT Licensed text processing library, written in Python, for detecting and parsing addresses. Currently it supports USA, Canadian and British addresses."
+authors = ["Argyle Developers <developers@argyle.io>"]
+documentation = "https://github.com/argyle-engineering/pyap"
 license = "MIT"
 readme="README.rst"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    'Topic :: Software Development :: Libraries',
+    'Topic :: Scientific/Engineering :: Information Analysis',
+    'Topic :: Utilities'
+]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
+python = ">=3.9"
 taskipy = "^1.2.1"
 
 [tool.poetry.dev-dependencies]
@@ -29,7 +40,7 @@ test = "pytest tests -vvv"
 check = "task lint && task yamllint && task check_fmt && task check_types && task test"
 
 [tool.pyright]
-pythonVersion = "3.10"
+pythonVersion = "3.9"
 reportIncompatibleVariableOverride = true
 strictListInference = true
 strictDictionaryInference = true
@@ -50,5 +61,12 @@ reportAssertAlwaysTrue = true
 reportUnusedCoroutine = true
 
 [build-system]
-requires = ["poetry>=1.1.8"]
+requires = ["poetry>=1.4", "poetry-dynamic-versioning>=1.0"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+latest-tag = true
+pattern = "^(?P<base>\\d+\\.\\d+\\.\\d+)"
+format-jinja = "{% if distance == 0 %}{{ base }}{% else %}{{ base }}a+{{ distance }}.{{ commit }}{% endif %}"
