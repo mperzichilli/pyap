@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "argyle-pyap"
+name = "pyap"
 version = "0.0.0"
 description = "Argyle's Pyap is a fork of Pyap, a MIT Licensed text processing library, written in Python, for detecting and parsing addresses. Currently it supports USA, Canadian and British addresses."
 authors = ["Argyle Developers <developers@argyle.io>"]
