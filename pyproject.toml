@@ -6,7 +6,6 @@ authors = ["Argyle Developers <developers@argyle.io>"]
 documentation = "https://github.com/argyle-engineering/pyap"
 license = "MIT"
 readme="README.rst"
-requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
