@@ -4,8 +4,8 @@
 
 import re
 import pytest
-import pyap.source_CA.data as data_ca
-from pyap import utils
+import argyle_pyap.source_CA.data as data_ca
+from argyle_pyap import utils
 
 
 @pytest.mark.parametrize(

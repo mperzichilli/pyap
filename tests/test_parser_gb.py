@@ -6,10 +6,8 @@
 import re
 import pytest
 import itertools
-import pyap
-import pyap.parser
-from pyap import utils
-import pyap.source_GB.data as data_gb
+from argyle_pyap import parser, utils, parse
+import argyle_pyap.source_GB.data as data_gb
 
 
 def execute_matching_test(input, expected, pattern):
@@ -573,15 +571,15 @@ def test_full_address_parts():
                     + filler_text_after
                 )
 
-                parsed = pyap.parse(address_text, country="GB")
-                print(pyap.parser.AddressParser._normalize_string(address_text))
+                parsed = parse(address_text, country="GB")
+                print(parser.AddressParser._normalize_string(address_text))
                 # Ensure that only one address is found
                 assert len(parsed) == 1
                 for k, v in address_parts.items():
                     if k == "full_address":
                         assert parsed[
                             0
-                        ].full_address == pyap.parser.AddressParser._normalize_string(v)
+                        ].full_address == parser.AddressParser._normalize_string(v)
                     else:
                         # assert that every item in the above address dictionaries
                         # match the parsed address

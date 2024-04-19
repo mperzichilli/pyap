@@ -4,18 +4,14 @@
 """ Test for parser classes """
 
 import pytest
-
-import pyap as ap
-from pyap import parser
-from pyap import address
-from pyap import exceptions as e
+from argyle_pyap import parser, exceptions, address, parse, parse_single_street
 
 
 def test_api_parse():
     test_address = (
         "xxx 225 E. John Carpenter Freeway, " + "Suite 1500 Irving, Texas 75062 xxx"
     )
-    addresses = ap.parse(test_address, country="US")
+    addresses = parse(test_address, country="US")
     assert (
         str(addresses[0].full_address)
         == "225 E. John Carpenter Freeway, Suite 1500 Irving, Texas 75062"
@@ -24,7 +20,7 @@ def test_api_parse():
 
 def test_api_parse_canada():
     test_address = "xxx 33771 George Ferguson Way Abbotsford, BC V2S 2M5 xxx"
-    addresses = ap.parse(test_address, country="CA")
+    addresses = parse(test_address, country="CA")
     assert (
         str(addresses[0].full_address)
         == "33771 George Ferguson Way Abbotsford, BC V2S 2M5"
@@ -33,7 +29,7 @@ def test_api_parse_canada():
 
 def test_api_parse_single_street():
     test_address = "255 SOUTH STREET"
-    addresses = ap.parse_single_street(test_address, country="US")
+    addresses = parse_single_street(test_address, country="US")
     assert str(addresses[0].full_street) == "255 SOUTH STREET"
     assert str(addresses[0].full_address) == "255 SOUTH STREET"
 
@@ -63,7 +59,7 @@ def test_no_country_selected_exception():
 
 
 def test_country_detection_missing():
-    with pytest.raises(e.CountryDetectionMissing):
+    with pytest.raises(exceptions.CountryDetectionMissing):
         parser.AddressParser(country="TheMoon")  # type: ignore
 
 
