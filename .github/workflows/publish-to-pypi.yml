@@ -1,12 +1,12 @@
 name: Publish to PyPi
 
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches:
     - master
     - main
   pull_request:
-    types: 
+    types:
     - opened
     - synchronize
   release:
@@ -19,24 +19,24 @@ jobs:
     name: Build package
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-      - name: Install build dependencies
-        run: python -m pip install poetry==1.4.2 poetry-dynamic-versioning==1.2.0
-      - name: Install project
-        run: poetry install
-      - name: Build Python package
-        run: poetry build
-      - name: Store the distribution packages
-        uses: actions/upload-artifact@v3
-        with:
-          name: python-package-distributions
-          path: dist/
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: Install build dependencies
+      run: python -m pip install poetry==1.4.2 poetry-dynamic-versioning==1.2.0
+    - name: Install project
+      run: poetry install
+    - name: Build Python package
+      run: poetry build
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v3
+      with:
+        name: python-package-distributions
+        path: dist/
 
     publish-to-pypi:
       name: Publish package to PyPI
@@ -59,7 +59,7 @@ jobs:
           path: dist/
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-      
+
     publish-to-testpypi:
       name: Publish package to TestPyPI
       needs:
@@ -69,7 +69,7 @@ jobs:
       environment:
         name: testpypi
         url: https://test.pypi.org/p/argyle-pyap
-      
+
       permissions:
         id-token: write
 
