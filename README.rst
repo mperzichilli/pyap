@@ -1,8 +1,8 @@
-Pyap: Python address parser
+Pyap2: Python address parser
 ===========================
 
 
-Pyap is an MIT Licensed text processing library, written in Python, for
+Pyap2 is a maintained fork of Pyap, a regex-based python library for
 detecting and parsing addresses. Currently it supports US 🇺🇸, Canadian 🇨🇦 and British 🇬🇧 addresses. 
 
 
@@ -29,33 +29,20 @@ detecting and parsing addresses. Currently it supports US 🇺🇸, Canadian �
 Installation
 ------------
 
-To install Pyap, simply:
+To install Pyap2, simply:
 
 .. code-block:: bash
 
-    $ pip install pyap
+    $ pip install pyap2
 
 
 
 About
 -----
-This library has been created because i couldn't find any reliable and
-opensource solution for detecting addresses on web pages when writing my
-web crawler. Currently available solutions have drawbacks when it comes
-to using them to process really large amounts of data fast. You'll
-either have to buy some proprietary software; use third-party
-pay-per-use services or use address detecting which is slow and
-unsuitable for real-time processing.
-
-Pyap is an alternative to all these methods. It is really fast because
-it is based on using regular expressions and it allows to find addresses
-in text in real time with low error rates.
-
-
-Future work
------------
-- Add rules for parsing FR addresses
-- ...
+We started improving the original `pyap` by adopting poetry and adding typing support. 
+It was extensively tested in web-scraping operations on thousands of US addresses. 
+Gradually, we added support for many rarer address formats and edge cases, as well 
+as the ability to parse a partial address where only street info is available. 
 
 
 Typical workflow
@@ -64,13 +51,10 @@ Pyap should be used as a first thing when you need to detect an address
 inside a text when you don't know for sure whether the text contains
 addresses or not.
 
-To achieve the most accuracy Pyap results could be reverified using
-geocoding process.
-
 
 Limitations
 -----------
-Because Pyap is based on regular expressions it provides fast results.
+Because Pyap2 (and Pyap) is based on regular expressions it provides fast results.
 This is also a limitation because regexps intentionally do not use too
 much context to detect an address.
 

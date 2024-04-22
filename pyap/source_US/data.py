@@ -935,7 +935,7 @@ phone_number = r"""
             )
             """
 
-part_div = r"(?:[\,\s]{1,2}|\ \-\ |$)"  # allows for line breaks
+part_div = r"(?:[\,\s]{1,3}|\ \-\ |$)"  # allows for line breaks
 
 full_street = r"""
     (?:
