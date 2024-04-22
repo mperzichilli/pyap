@@ -1,6 +1,6 @@
 [flake8]
 import_order_style = pep8
-application-import-names = pyap
+application-import-names = argyle_pyap
 max-line-length = 88
 per-file-ignores =
-    pyap/source_*:W291,W605,F522,E501,W293
+    argyle_pyap/source_*:W291,W605,F522,E501,W293
