@@ -17,7 +17,7 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   build:
-    if: | 
+    if: |
       contains( github.event.pull_request.labels.*.name, 'publish-pr') ||
       contains( github.event.pull_request.labels.*.name, 'build-pr')
     name: Build package
