@@ -171,7 +171,7 @@ def test_street_name(input, expected):
     [
         # positive assertions
         ("Highway 32", True),
-        ("Parkway", True)
+        ("Parkway", True),
         # negative assertions
     ],
 )
@@ -550,6 +550,10 @@ def test_full_street_positive(input, expected):
         ("4090 Westown Pkwy Ste B2 Chicago, IL 60614", True),
         ("7000 Peachtree Dunwoody Rd NE Bldg 7, Miami, FL, USA", True),
         ("98-025 Hekaha St Ste 221A, Cityville, Arizona", True),
+        (
+            "225 E. John Carpenter Freeway, \nSuite 1500, Irving, Texas 75062 U.S.A.",
+            True,
+        ),
         ("225 E. John Carpenter Freeway, Suite 1500 Irving, Texas 75062 U.S.A.", True),
         ("643 Lincoln Rd. Miami Beach, FL 33139", True),
         ("300 Market St. Harrisburg, PA 17101", True),
