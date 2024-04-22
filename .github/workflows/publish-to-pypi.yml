@@ -17,7 +17,9 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   build:
-    if: contains( github.event.pull_request.labels.*.name, 'publish-pr')
+    if: | 
+      contains( github.event.pull_request.labels.*.name, 'publish-pr') ||
+      contains( github.event.pull_request.labels.*.name, 'build-pr')
     name: Build package
     runs-on: ubuntu-latest
     steps:
@@ -49,7 +51,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/p/argyle-pyap
+      url: https://pypi.org/p/pyap2
 
     permissions:
       id-token: write
@@ -72,7 +74,7 @@ jobs:
 
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/argyle-pyap
+      url: https://test.pypi.org/p/pyap2
 
     permissions:
       id-token: write
