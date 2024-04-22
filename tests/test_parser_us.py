@@ -4,8 +4,8 @@
 
 import re
 import pytest
-from argyle_pyap import utils
-import argyle_pyap.source_US.data as data_us
+from pyap import utils
+import pyap.source_US.data as data_us
 
 
 def execute_matching_test(input, expected, pattern):

@@ -4,7 +4,7 @@
 """ Test for parser classes """
 
 import pytest
-from argyle_pyap import parser, exceptions, address, parse, parse_single_street
+from pyap import parser, exceptions, address, parse, parse_single_street
 
 
 def test_api_parse():

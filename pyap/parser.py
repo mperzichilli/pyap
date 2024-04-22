@@ -27,7 +27,7 @@ class AddressParser:
 
         try:
             # import detection rules
-            package = "argyle_pyap" + ".source_" + self.country + ".data"
+            package = "pyap" + ".source_" + self.country + ".data"
             data = importlib.import_module(package)
             self.rules = data.full_address
             self.single_street_rules = data.full_street

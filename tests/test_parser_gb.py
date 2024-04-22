@@ -6,8 +6,8 @@
 import re
 import pytest
 import itertools
-from argyle_pyap import parser, utils, parse
-import argyle_pyap.source_GB.data as data_gb
+from pyap import parser, utils, parse
+import pyap.source_GB.data as data_gb
 
 
 def execute_matching_test(input, expected, pattern):
