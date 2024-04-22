@@ -17,6 +17,7 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   build:
+    if: contains( github.event.pull_request.labels.*.name, 'publish-pr')
     name: Build package
     runs-on: ubuntu-latest
     steps:
