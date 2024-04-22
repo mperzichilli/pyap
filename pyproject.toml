@@ -22,8 +22,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9"
-taskipy = "^1.2.1"
+python = "^3.9"
 
 [tool.poetry.dev-dependencies]
 black = "*"
@@ -31,6 +30,7 @@ flake8 = "*"
 flake8-bugbear = "*"
 yamllint = "*"
 pytest = "^7.1.2"
+taskipy = "^1.12.2"
 
 [tool.taskipy.tasks]
 lint = "flake8"
