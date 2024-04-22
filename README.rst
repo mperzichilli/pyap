@@ -1,5 +1,5 @@
 Pyap2: Python address parser
-===========================
+============================
 
 
 Pyap2 is a maintained fork of Pyap, a regex-based python library for
