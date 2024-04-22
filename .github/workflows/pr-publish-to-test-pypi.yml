@@ -1,13 +1,18 @@
-name: Publish to PyPi
+name: Publish to Test PyPi
 
 on:  # yamllint disable-line rule:truthy
-  release:
+  pull_request:
     types:
-    - published
+    - labeled
+    - opened
+    - synchronize
   workflow_dispatch:
 
 jobs:
   build:
+    if: |
+      contains( github.event.pull_request.labels.*.name, 'publish-pr') ||
+      contains( github.event.pull_request.labels.*.name, 'build-pr')
     name: Build package
     runs-on: ubuntu-latest
     steps:
@@ -30,29 +35,8 @@ jobs:
         name: python-package-distributions
         path: dist/
 
-  publish-to-pypi:
-    name: Publish package to PyPI
-    needs:
-    - build
-    runs-on: ubuntu-latest
-
-    environment:
-      name: pypi
-      url: https://pypi.org/p/pyap2
-
-    permissions:
-      id-token: write
-
-    steps:
-    - name: Download all the dists
-      uses: actions/download-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-    - name: Publish distribution to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-
   publish-to-testpypi:
+    if: contains( github.event.pull_request.labels.*.name, 'publish-pr')
     name: Publish package to TestPyPI
     needs:
     - build
