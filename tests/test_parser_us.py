@@ -171,7 +171,7 @@ def test_street_name(input, expected):
     [
         # positive assertions
         ("Highway 32", True),
-        ("Parkway", True)
+        ("Parkway", True),
         # negative assertions
     ],
 )
