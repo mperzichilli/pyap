@@ -769,7 +769,7 @@ street_type_list = [
 street_type_leading_list = ["Camino", "El\ Camino"]
 
 
-def street_type_list_to_regex(street_type_list):
+def street_type_list_to_regex(street_type_list: list[str]) -> str:
     """Converts a list of street types into a regex"""
     street_types = str_list_to_upper_lower_regex(street_type_list)
 
@@ -803,7 +803,10 @@ typed_street_name = r"""
             (?:      
                 (?:{street_name_a}{space_div}{street_type_a})
                 |
-                (?:{street_type_b}{space_div}{street_name_b})
+                (?:
+                    (?:{post_direction_re}{space_div})?
+                    {street_type_b}{space_div}{street_name_b}
+                )
             )
 """.format(
     space_div=space_div,
@@ -811,6 +814,7 @@ typed_street_name = r"""
     street_type_a=street_type_extended,
     street_type_b=rf"(?P<street_type_b>{street_types_leading_re})",
     street_name_b=rf"(?P<street_name_b>{street_name_one_word_re})",
+    post_direction_re=post_direction_re,
 )
 
 floor_indic = r"""
@@ -893,6 +897,8 @@ occupancy = r"""
                         (?:
                             [A-Za-z\#\&\-\d]{1,7}(?:\s?[SWNE])?
                         )?
+                        |
+                        \d{2,4}\ [Ss][Tt][Ee](?:\ \*)?
                     )
                     |
                     (?:
@@ -952,7 +958,7 @@ full_street = r"""
                     |
                     (?:
                         {post_direction_re}\ 
-                        \d{{,3}}[A-Z][A-Za-z\-]{{,31}}
+                        \d{{,3}}[A-Za-z\-]{{1,31}}
                     )
                 )
                 (?:{space_div}{post_direction})?
