@@ -936,7 +936,7 @@ po_box = r"""
 
 phone_number = r"""
             (?:
-                \*?
+                \*?(?:[Pp][Hh]\ )?
                 (?P<phone_number>
                     \(?\d{3}\)?\-?\ ?\d{3}\-?\ ?\-?\d{4}
                 )
