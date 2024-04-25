@@ -476,6 +476,7 @@ def test_full_street_positive(input, expected):
     [
         # positive assertions
         ("P.O. BOX 10323 PH (205) 595-3511\nBIRMINGHAM, AL 35202", True),
+        ("1100 VIRGINIA DR\nFORT WASHINGTON, PA, 19034", True),
         ("3602 HIGHPOINT\nSAN ANTONIO TX78217", True),
         ("8025 BLACK HORSE\nSTE 300\nPLEASANTVILLE NJ 08232", True),
         ("696 BEAL PKWY NW\nFT WALTON BCH FL 32547", True),
@@ -633,17 +634,20 @@ def test_postal_code(input, expected):
         ("Nebraska", True),
         ("NJ", True),
         ("DC", True),
+        ("D.C.", True),
         ("PuErTO RIco", True),
         ("oregon", True),
         ("Tx", True),
         ("nY", True),
         ("fl", True),
         ("MICH", True),
+        # negative assertions
+        ("NJ.", False),
     ],
 )
 def test_region1(input, expected):
     """test exact string match for province"""
-    execute_matching_test(input, expected, data_us.region1)
+    execute_matching_test(input, expected, data_us.make_region1())
 
 
 @pytest.mark.parametrize(

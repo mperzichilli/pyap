@@ -16,6 +16,7 @@
 
 import string
 from typing import List
+from typing import Optional
 
 
 def str_list_to_upper_lower_regex(str_list: List[str]) -> str:
@@ -986,7 +987,7 @@ full_street = r"""
 
 
 def states_abbrvs_regex() -> str:
-    state_abbrs = [
+    _STATE_ABBRS = {
         "AL",
         "AK",
         "AZ",
@@ -995,7 +996,6 @@ def states_abbrvs_regex() -> str:
         "CO",
         "CT",
         "DE",
-        "DC",
         "FL",
         "GA",
         "HI",
@@ -1009,7 +1009,7 @@ def states_abbrvs_regex() -> str:
         "ME",
         "MD",
         "MA",
-        "MI(?:CH)?",
+        "MI(?:CH)?\.?",
         "MN",
         "MS",
         "MO",
@@ -1038,25 +1038,27 @@ def states_abbrvs_regex() -> str:
         "WV",
         "WI",
         "WY",
-        # unincorporated & commonwealth territories
+    }
+    _NON_STATE_ABBRS = {
         "AS",
         "GU",
         "MP",
         "PR",
         "VI",
-    ]
-
-    def to_abbr_with_optional_dots(abbr: str) -> str:
-        return "".join((c + r"\.?") if c in string.ascii_uppercase else c for c in abbr)
-
-    return str_list_to_upper_lower_regex(
-        [to_abbr_with_optional_dots(abbr) for abbr in state_abbrs]
+        "D\.?C\.?",
+    }
+    return (
+        r"(?:"
+        + str_list_to_upper_lower_regex(list(_STATE_ABBRS | _NON_STATE_ABBRS))
+        + r")(?![A-Za-z])"
     )
 
 
 # region1 is actually a "state"
-region1 = r"""
-        (?P<region1>
+def make_region1(idx: Optional[str] = None):
+    maybe_idx = f"_{idx}" if idx else ""
+    return r"""
+        (?P<region1{maybe_idx}>
             (?:
                 # states full
                 [Aa][Ll][Aa][Bb][Aa][Mm][Aa]|
@@ -1126,8 +1128,9 @@ region1 = r"""
             )
         )
         """.format(
-    state_abbrvs=states_abbrvs_regex()
-)
+        state_abbrvs=states_abbrvs_regex(), maybe_idx=maybe_idx
+    )
+
 
 # TODO: doesn't catch cities containing French characters
 # We require short city names to contain a vowel
@@ -1145,11 +1148,8 @@ city = r"""
         )
         """
 
-postal_code = r"""
-            (?P<postal_code>
-                (?:\d{5}(?:\-\d{4})?(?!\d))
-            )
-            """
+postal_code_re = r"""(?:\d{5}(?:\-\d{4})?(?!\d))"""
+postal_code = rf"""(?P<postal_code>{postal_code_re})"""
 
 country = r"""
             (?:
@@ -1159,35 +1159,49 @@ country = r"""
             """
 
 
+def make_region1_postal_code(
+    part_div: str = part_div, postal_code: str = postal_code
+) -> str:
+    """This should match region1 (state) and postal code each at most once,
+    but require at least one of the two."""
+
+    def _indexed_region1(idx: Optional[str] = None):
+        return rf"""(?:{part_div} {make_region1(idx)})"""
+
+    _postal_code = f"""(?:{part_div}|\-)? {postal_code}"""
+    return rf"""
+            (?:{_indexed_region1("a")}?{_postal_code}{_indexed_region1("b")}?
+            |{_indexed_region1("c")}(?![-,.\ A-Za-z]{{0,10}}{postal_code_re}))
+        """
+
+
+region1_postal_code = make_region1_postal_code()
+
+
 def make_full_address(
     *,
     full_street: str = full_street,
     part_div: str = part_div,
     city: str = city,
-    region1: str = region1,
+    region1_postal_code: str = region1_postal_code,
     country: str = country,
-    postal_code: str = postal_code,
     phone_number: str = phone_number,
 ) -> str:
+
     return r"""
                 (?P<full_address>
                     {full_street}
                     (?:{part_div} {phone_number})?
                     {part_div}{city}
-                    (?:
-                        {part_div} {region1} (?![A-Za-z])
-                        | 
-                        (?:{part_div}|\-)? {postal_code}
-                    ){{1,2}}
+                    {region1_postal_code}
                     (?:{part_div} {country})?
                 )
                 """.format(
         full_street=full_street,
         part_div=part_div,
         city=city,
-        region1=region1,
+        region1_postal_code=region1_postal_code,
         country=country,
-        postal_code=postal_code,
         phone_number=phone_number,
     )
 
