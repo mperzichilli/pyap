@@ -191,6 +191,7 @@ def test_single_street_name(input, expected):
         ("eASt", True),
         ("NW", True),
         ("SE", True),
+        ("S.E.", True),
         # negative assertions
         ("NW.", False),
         ("NS", False),
@@ -386,6 +387,7 @@ def test_po_box_positive(input, expected):
     "input,expected",
     [
         # positive assertions
+        ("800 W EL CAMINO REAL\n350 STE *", True),
         ("899 HEATHROW PARK LN", True),
         ("1806 Dominion Way Ste B", True),
         ("696 BEAL PKWY", True),
@@ -459,6 +461,7 @@ def test_po_box_positive(input, expected):
         ("78 SE Criket", True),
         ("P.O. BOX 41256, One Velvet Drive", True),
         ("666 Hell ST PMB 29700", True),
+        ("817 S.E. 55TH", True),
         # negative assertions
         (", 666 Hell ST PMB 29700", False),
     ],
@@ -472,11 +475,13 @@ def test_full_street_positive(input, expected):
     "input,expected",
     [
         # positive assertions
+        ("P.O. BOX 10323 PH (205) 595-3511\nBIRMINGHAM, AL 35202", True),
         ("3602 HIGHPOINT\nSAN ANTONIO TX78217", True),
         ("8025 BLACK HORSE\nSTE 300\nPLEASANTVILLE NJ 08232", True),
         ("696 BEAL PKWY NW\nFT WALTON BCH FL 32547", True),
         ("2633 Camino Ramon Ste. 400 San Ramon, CA 94583-2176", True),
         ("2951 El Camino Real Palo Alto, CA 94306", True),
+        ("800 W EL CAMINO REAL\n350 STE *\nMOUNTAIN VIEW, CA 94040", True),
         ("3821 ED DR, RALEIGH, NC 27612", True),
         ("213 WEST 35TH STREET SUITE, 400, NEW YORK, NY", True),
         ("326 33RD AVE., EAST, SEATTLE, WA 98112", True),
