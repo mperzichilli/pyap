@@ -987,6 +987,7 @@ full_street = r"""
 
 
 def states_abbrvs_regex() -> str:
+    # Some abbreviations are non-standard
     _STATE_ABBRS = {
         "AL",
         "AK",
@@ -1019,7 +1020,7 @@ def states_abbrvs_regex() -> str:
         "NH",
         "NJ",
         "NM",
-        "NY",
+        "NY|N\.Y\.",
         "NC",
         "ND",
         "OH",

@@ -635,6 +635,7 @@ def test_postal_code(input, expected):
         ("NJ", True),
         ("DC", True),
         ("D.C.", True),
+        ("N.Y.", True),
         ("PuErTO RIco", True),
         ("oregon", True),
         ("Tx", True),
