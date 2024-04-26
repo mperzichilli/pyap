@@ -946,6 +946,12 @@ phone_number = r"""
 
 part_div = r"(?:[\,\s]{1,3}|\ \-\ |$)"  # allows for line breaks
 
+# Enforce a more significant delineation (e.g. between full_street and city)
+# This is needed to address the Saint/St./St Fort/Ft./Ft Mount/Mt./Mt problem
+# where they are both valid as street types and as city prefixes.
+# TODO: Possibly solve this better with a negative lookahead for city prefix?
+hard_part_div = r"(?:\ ?\,\ ?|\ ?\,?\r\n|\ ?\,?\n|\ \-\ |$)"
+
 full_street = r"""
     (?:
         (?P<full_street>
@@ -1193,12 +1199,13 @@ def make_full_address(
                 (?P<full_address>
                     {full_street}
                     (?:{part_div} {phone_number})?
-                    {part_div}{city}
+                    {hard_part_div}{city}
                     {region1_postal_code}
                     (?:{part_div} {country})?
                 )
                 """.format(
         full_street=full_street,
+        hard_part_div=hard_part_div,
         part_div=part_div,
         city=city,
         region1_postal_code=region1_postal_code,
